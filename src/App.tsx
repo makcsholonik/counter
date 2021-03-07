@@ -1,27 +1,27 @@
 import React, {useState} from 'react';
 import './App.css';
+import {Button} from './components/Button/Button';
 import {Display} from './components/Display/Display';
 
 
 function App() {
-
+	const maxCount = 5;
 	const [count, setCount] = useState<number>(0)
 
-	function inc() {
-		setCount(count + 1)
+	function incFn() {
+		if (count < maxCount) {
+			setCount(count + 1)
+		}
 	}
 
-	function reset() {
+	function resetFn() {
 		setCount(0)
 	}
 
 	return (
 		<div className="count">
 			<Display count={count}/>
-			<div className="button">
-				<button className="button_inc" onClick={inc} disabled={count === 5}>inc</button>
-				<button className="button_reset" onClick={reset} disabled={count === 0}>reset</button>
-			</div>
+			<Button count={count} maxCount={maxCount} incFn={incFn} resetFn={resetFn}/>
 		</div>
 	);
 }

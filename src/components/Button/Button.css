@@ -1,0 +1,19 @@
+.button {
+    height: 80px;
+    width: 320px;
+    border: 2px solid black;
+    margin: 40px auto;
+    display: flex;
+    border-radius: 10px
+}
+
+button {
+    height: 60px;
+    width: 100px;
+    border: 2px solid black;
+    border-radius: 10px;
+    background-color: grey;
+    margin: 10px auto;
+    font-size: 30px;
+    font-weight: bold;
+}
