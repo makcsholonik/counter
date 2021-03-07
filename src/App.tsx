@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import './App.css';
-import {Button} from './components/Button/Button';
+import {Buttons} from './components/Buttons/Buttons';
 import {Display} from './components/Display/Display';
 
 
@@ -21,7 +21,7 @@ function App() {
 	return (
 		<div className="count">
 			<Display count={count}/>
-			<Button count={count} maxCount={maxCount} incFn={incFn} resetFn={resetFn}/>
+			<Buttons count={count} maxCount={maxCount} incFn={incFn} resetFn={resetFn}/>
 		</div>
 	);
 }

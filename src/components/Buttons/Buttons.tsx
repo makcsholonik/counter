@@ -1,5 +1,5 @@
 import React from "react";
-import "./Button.css"
+import "./Buttons.css"
 
 type ButtonPropsType = {
 	count: number
@@ -8,7 +8,7 @@ type ButtonPropsType = {
 	resetFn: () => void
 }
 
-export function Button(props: ButtonPropsType) {
+export function Buttons(props: ButtonPropsType) {
 	return (
 		<div className="button">
 			<button onClick={props.incFn} disabled={props.count === props.maxCount}>inc</button>
