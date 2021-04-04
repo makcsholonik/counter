@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useState } from 'react';
-import './App.css';
-import { Button, Grid, Paper, TextField } from "@material-ui/core";
-
+import cl from './App.module.css';
 
 export function App () {
 
@@ -35,14 +33,12 @@ export function App () {
 	}
 
 	return (
-		<Grid container justify="center" spacing={ 2 } alignItems="center">
-			<Grid item xs={ 4 }>
-				<Paper style={ { padding:"20px" } }>
+		<div className={ cl.count }>
+			<div className={ cl.counter }>
+				<div className={ cl.display_set }>
 					<div>
 						max value:
-						<TextField
-							error={ maxValue < 0}
-							variant="outlined"
+						<input
 							type="number"
 							value={ maxValue }
 							onChange={ onChangeMaxValue }
@@ -50,50 +46,39 @@ export function App () {
 					</div>
 					<div>
 						start value:
-						<TextField
-							error={ startValue < 0 }
-							variant="outlined"
+						<input
 							type="number"
 							value={ startValue }
 							onChange={ onChangeStartValue }
 						/>
 					</div>
-					<Button
+				</div>
+				<div className={ cl.button }>
+					<button
 						disabled={ maxValue <= startValue }
-						variant="outlined"
 						color="primary"
 						onClick={ onClickSetValue }>
 						set
-					</Button>
-				</Paper>
-			</Grid>
-			<Grid item xs={ 4 }>
-				<Paper style={ { padding:"20px" } }>
-					<Grid item>
-						<TextField
-							variant="outlined"
-							value={ startCount }
-						/>
-					</Grid>
-					<Grid item>
-						<Button
-							variant="outlined"
-							color="primary"
-							onClick={ incFn }
-							disabled={ startCount === maxCount }
-						>inc
-						</Button>
-						<Button
-							variant="outlined"
-							color="primary"
-							onClick={ resetFn }
-							disabled={ startCount === 0 }
-						>reset
-						</Button>
-					</Grid>
-			</Paper>
-		</Grid>
-</Grid>
-)
-	;
+					</button>
+				</div>
+			</div>
+			<div className={ cl.counter }>
+				<div className={ cl.display_show }>
+					{ startCount }
+				</div>
+				<div className={ cl.button }>
+					<button
+						onClick={ incFn }
+						disabled={ startCount === maxCount }
+					>inc
+					</button>
+					<button
+						onClick={ resetFn }
+						disabled={ startCount === startValue }
+					>reset
+					</button>
+				</div>
+			</div>
+		</div>)
 }
+
