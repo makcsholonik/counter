@@ -1,5 +1,6 @@
 import React, { ChangeEvent, useState } from 'react';
 import cl from './App.module.css';
+import { Button } from "./Button";
 
 export function App () {
 
@@ -54,12 +55,11 @@ export function App () {
 					</div>
 				</div>
 				<div className={ cl.button }>
-					<button
-						disabled={ maxValue <= startValue }
-						color="primary"
-						onClick={ onClickSetValue }>
-						set
-					</button>
+					<Button
+						buttonName={ "set" }
+						onClick={ onClickSetValue }
+						disabledValue={ maxValue <= startValue }
+					/>
 				</div>
 			</div>
 			<div className={ cl.counter }>
@@ -67,18 +67,25 @@ export function App () {
 					{ startCount }
 				</div>
 				<div className={ cl.button }>
-					<button
+					<Button
+						buttonName={ "inc" }
 						onClick={ incFn }
-						disabled={ startCount === maxCount }
-					>inc
-					</button>
-					<button
+						disabledValue={ startCount === maxCount }
+					/>
+					<Button
+						buttonName={ "reset" }
 						onClick={ resetFn }
-						disabled={ startCount === startValue }
-					>reset
-					</button>
+						disabledValue={ startCount === startValue }
+					/>
 				</div>
 			</div>
-		</div>)
+		</div>
+	)
 }
 
+
+/*
+<button disabled={ maxValue <= startValue }	onClick={ onClickSetValue }>set</button>
+<button onClick={ incFn }	disabled={ startCount === maxCount }>inc</button>
+<button onClick={ resetFn } disabled={ startCount === startValue }>reset</button>
+*/
