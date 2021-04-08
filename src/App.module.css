@@ -35,7 +35,8 @@ input {
     margin: 18px auto;
     font-size: 24px;
 }
-.display_set> div {
+
+.display_set > div {
     margin: 20px;
 }
 

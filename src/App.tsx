@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import cl from './App.module.css';
 import { Button } from "./Button";
 
@@ -10,6 +10,25 @@ export function App () {
 	const [maxValue, setMaxValue] = useState<number> ( 5 );
 	const [startValue, setStartValue] = useState<number> ( 0 );
 
+	useEffect ( () => {
+		let valueAsString = localStorage.getItem("counterStartValue");
+		if (valueAsString) {
+			let newStartValue = JSON.parse(valueAsString);
+			setStartValue(newStartValue);
+		}
+	}, [] );
+	useEffect ( () => {
+		let valueAsString = localStorage.getItem("counterMaxValue");
+		if (valueAsString) {
+			let newMaxValue = JSON.parse(valueAsString);
+			setMaxValue(newMaxValue);
+		}
+	}, [] );
+	useEffect ( () => {
+		localStorage.setItem ( "counterStartValue", JSON.stringify ( startValue ) );
+		localStorage.setItem ( "counterMaxValue", JSON.stringify ( maxValue ) );
+	}, [startValue, maxValue] )
+
 	function incFn () {
 		if (startCount < maxCount) {
 			setStartCount ( startCount + 1 );
@@ -20,9 +39,8 @@ export function App () {
 	}
 	function newValues ( maxValue : number, startValue : number ) {
 		setMaxCount ( maxValue );
-		setStartCount ( startValue )
+		setStartCount ( startValue );
 	}
-
 	function onChangeMaxValue ( e : ChangeEvent<HTMLInputElement> ) {
 		setMaxValue ( Number ( e.currentTarget.value ) );
 	}
@@ -70,12 +88,12 @@ export function App () {
 					<Button
 						buttonName={ "inc" }
 						onClick={ incFn }
-						disabledValue={ startCount === maxCount }
+						disabledValue={ startCount === maxCount || maxValue <= startValue }
 					/>
 					<Button
 						buttonName={ "reset" }
 						onClick={ resetFn }
-						disabledValue={ startCount === startValue }
+						disabledValue={ startCount === startValue || maxValue <= startValue }
 					/>
 				</div>
 			</div>
