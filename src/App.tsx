@@ -9,19 +9,20 @@ export function App () {
 
 	const [maxValue, setMaxValue] = useState<number> ( 5 );
 	const [startValue, setStartValue] = useState<number> ( 0 );
+	const [editMode, setEditMode] = useState<boolean> ( true );
 
 	useEffect ( () => {
-		let valueAsString = localStorage.getItem("counterStartValue");
+		let valueAsString = localStorage.getItem ( "counterStartValue" );
 		if (valueAsString) {
-			let newStartValue = JSON.parse(valueAsString);
-			setStartValue(newStartValue);
+			let newStartValue = JSON.parse ( valueAsString );
+			setStartValue ( newStartValue );
 		}
 	}, [] );
 	useEffect ( () => {
-		let valueAsString = localStorage.getItem("counterMaxValue");
+		let valueAsString = localStorage.getItem ( "counterMaxValue" );
 		if (valueAsString) {
-			let newMaxValue = JSON.parse(valueAsString);
-			setMaxValue(newMaxValue);
+			let newMaxValue = JSON.parse ( valueAsString );
+			setMaxValue ( newMaxValue );
 		}
 	}, [] );
 	useEffect ( () => {
@@ -43,20 +44,25 @@ export function App () {
 	}
 	function onChangeMaxValue ( e : ChangeEvent<HTMLInputElement> ) {
 		setMaxValue ( Number ( e.currentTarget.value ) );
+		setEditMode ( false );
 	}
 	function onChangeStartValue ( e : ChangeEvent<HTMLInputElement> ) {
 		setStartValue ( Number ( e.currentTarget.value ) );
+		setEditMode ( false );
 	}
 	function onClickSetValue () {
-		newValues ( maxValue, startValue )
+		newValues ( maxValue, startValue );
+		setEditMode ( true );
 	}
 
 	return (
 		<div className={ cl.count }>
 			<div className={ cl.counter }>
-				<div className={ cl.display_set }>
+				<div className={ cl.displaySet }>
 					<div>
 						max value:
+					</div>
+					<div>
 						<input
 							type="number"
 							value={ maxValue }
@@ -65,6 +71,8 @@ export function App () {
 					</div>
 					<div>
 						start value:
+					</div>
+					<div>
 						<input
 							type="number"
 							value={ startValue }
@@ -81,8 +89,8 @@ export function App () {
 				</div>
 			</div>
 			<div className={ cl.counter }>
-				<div className={ cl.display_show }>
-					{ startCount }
+				<div className={ startCount ? cl.displayNumber :  cl.displayText}> //???
+					{ editMode ? startCount : <div>enter values and press 'set'</div> }
 				</div>
 				<div className={ cl.button }>
 					<Button
@@ -100,10 +108,3 @@ export function App () {
 		</div>
 	)
 }
-
-
-/*
-<button disabled={ maxValue <= startValue }	onClick={ onClickSetValue }>set</button>
-<button onClick={ incFn }	disabled={ startCount === maxCount }>inc</button>
-<button onClick={ resetFn } disabled={ startCount === startValue }>reset</button>
-*/
